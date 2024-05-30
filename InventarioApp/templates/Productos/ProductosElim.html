@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
+    <link rel="icon" type="image/x-icon" href="">
+    <title>Eliminar productos</title>
+</head>
+
+<body style="background: #252525;">
+
+    <header class="header">
+        <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
+        <nav class=" navigation">
+            <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
+                    class="fa-solid fa-user"></i></button>
+            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
+                    class="fa-solid fa-user"></i></button>
+        </nav>
+    </header>
+
+    <!-- <div style="text-align: center;"><br>
+        <h2>Formulario Agregar productos</h2>
+        <form action="ProductosAdd" method="POST">
+            <div>
+                {% csrf_token %}
+                <pre>Id producto:  <input type="text" name="id_producto" placeholder="Ingrese la id del producto"></pre>
+                <pre>Nombre producto: <input type="text" name="nombre_producto" placeholder="Nombre del producto"></pre>
+                <pre>Descripcion producto:  <textarea name="descripcion_producto" id="" cols="30" rows="10" placeholder="ingrese la descripcion del producto"></textarea></pre>
+                <pre>Cantidad producto: <input type="text" name="cantidad_producto" placeholder="Ingrese el stock del producto"></pre>
+                <pre>Precio producto:  <input type="text" name="precio_producto" placeholder="ingrese el precio del producto"></pre>
+                <input type="submit" id="agregar" name="opcion" value="Agregar producto">
+            </div>
+        </form><br><br>
+
+        <a href="{% url 'ProductosList' %}">Volver</a>
+        <br>
+        <div id="idMensajes">
+            {% if mensaje %}
+            {{mensaje}}
+            {% endif %}
+        </div>
+
+    </div> -->
+
+    <h1>Eliminar Producto</h1>
+
+    <!-- Pantalla de cargando -->
+    <div class="loader-container">
+        <img src="{% static 'imagenes/Cargando.gif' %}" alt="">
+    </div>
+
+    <!-- Redirecciones -->
+    <script>
+        function redireccionHome() {
+            location.href = "{% url 'Home' %}"
+        }
+
+        function loader() {
+            document.querySelector('.loader-container').classList.add('fade-out');
+        }
+
+        function fadeOut() {
+            setInterval(loader, 3000);
+        }
+
+        window.onload = fadeOut;
+    </script>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

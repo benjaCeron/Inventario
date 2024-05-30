@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css2/Home.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
+  <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/x-icon" href="">
+  <title>Inicio</title>
+</head>
+
+<body style="background-color: #252525;">
+
+  <header class="header">
+    <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
+    <nav class=" navigation">
+      <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
+          class="fa-solid fa-user"></i></button>
+      <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
+          class="fa-solid fa-user"></i></button>
+      </nav>
+  </header>
+
+  <div class="grid-container">
+    <div class="grid-item" type="button" onclick="redireccionProductosList()" >
+      <h1>Productos</h1>
+      <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
+    </div>
+    <div class="grid-item">
+      <h1>Proveedores</h1>
+      <img src="{% static 'imagenes/opciones/proveedor.png' %}" alt="">
+    </div>
+    <div class="grid-item">
+      <h1>Categorías</h1>
+    </div>
+    <div class="grid-item">
+      <h1>Sub-Categorías</h1>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Pantalla de cargando -->
+
+  <div class="loader-container">
+    <img src="{% static 'imagenes/Cargando.gif' %}" alt="">
+  </div>
+
+  <!-- Redirecciones -->
+  <script>
+    function redireccionPerfil() {
+      location.href = "{% url 'Perfil' %}"
+    }
+
+    function redireccionLogin() {
+      location.href = "{% url 'Login' %}"
+    }
+
+    function redireccionProductosList() {
+      location.href = "{% url 'ProductosList' %}"
+    }
+
+    function redireccionHome() {
+      location.href = "{% url 'Home' %}"
+    }
+
+    function loader() {
+      document.querySelector('.loader-container').classList.add('fade-out');
+    }
+
+    function fadeOut() {
+      setInterval(loader, 3000);
+    }
+
+    window.onload = fadeOut;
+  </script>
+
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

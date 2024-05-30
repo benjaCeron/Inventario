@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css2/style_login.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
+    <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="">
+    <title>Login</title>
+</head>
+<style>
+    .wrapper.active-popup {
+        transform: scale(1);
+    }
+
+    .wrapper.active {
+        height: 620px;
+    }
+</style>
+
+<body style="background-color: aqua;">
+
+    <header class="header">
+        <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
+        <nav class="navigation">
+            <button class="btnLogin-popup" type="button" onclick="redireccion()">Login</button>
+        </nav>
+    </header>
+
+    <div class="wrapper active-popup">
+        <!-- Formulario de login -->
+        <div class="form-box login">
+            <h2>Acceder</h2>
+            <form action="{% url 'Login' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" id="id_email" name="email-login" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="id_password" name="contrasenia-login" required>
+                    <label>Contraseña</label>
+                </div>
+                <div class="mostar-contraseña">
+                    <label><input type="checkbox" name="" onclick="myFunction()"> Mostrar Contraseña</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Recordarme</label>
+                    <a href="#">olvido la contraseña?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="loader-container">
+        <img src="{% static 'imagenes/Cargando.gif' %}" alt="">
+    </div>
+
+    <!--Script para que se muestre la contraseña-->
+    <script type="text/javascript">
+        function myFunction() {
+            var show = document.getElementById('id_password');
+            if (show.type == 'password') {
+                show.type = 'text';
+            } else {
+                show.type = 'password';
+            }
+        }
+
+        function redireccionHome() {
+            location.href = "{% url 'Home' %}"
+        }
+
+        function loader() {
+            document.querySelector('.loader-container').classList.add('fade-out');
+        }
+
+        function fadeOut() {
+            setInterval(loader, 3000);
+        }
+
+        window.onload = fadeOut;
+    </script>
+
+</body>
+
+</html>

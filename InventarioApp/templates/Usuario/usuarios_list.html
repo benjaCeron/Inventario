@@ -1,0 +1,128 @@
+<!-- listar_usuarios.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/logo_vaca.png' %}">
+    <title>Listar Usuarios</title>
+</head>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        text-align: left;
+        background: cadetblue;
+    }
+
+    td {
+        background: #eee;
+    }
+
+    a {
+        padding: 5px;
+        margin: auto;
+        border-radius: 20px;
+        margin-top: 5px;
+        text-decoration: none;
+        border: .1rem solid black;
+        color: white;
+        background: #5a5151;
+        margin-top: auto;
+    }
+
+    .loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 100000;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .loader-container img {
+        width: 35rem;
+    }
+
+    .loader-container.fade-out {
+        top: 110%;
+        opacity: 0;
+    }
+</style>
+
+
+<body>
+
+
+    <center>
+        <h1>Listar Datos de Usuarios</h1>
+    </center>
+    <br>
+
+    <center>
+        <table>
+            {% if usuarios %}
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Apellido Paterno</th>
+                <th>Correo Elestronico</th>
+            </tr>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>{{ usuario.email }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">No hay usuarios registrados</td>
+            </tr>
+            {% endif %}
+        </table>
+    </center><br>
+
+    <center><a type="submit" role="button" href="{% url 'Index' %}">Volver al Inicio</a></center>
+
+    <div class="loader-container">
+        <img src="{% static 'imagenes/vaca.webp' %}" alt="">
+    </div>
+
+    <!-- Redirección a la página login con el botón -->
+    <script>
+        function redireccion() {
+            location.href = "{% url 'Login' %}";
+        }
+
+        function loader() {
+            document.querySelector('.loader-container').classList.add('fade-out');
+        }
+
+        function fadeOut() {
+            setInterval(loader, 3000);
+        }
+
+        window.onload = fadeOut;
+    </script>
+
+</body>
+
+</html>
