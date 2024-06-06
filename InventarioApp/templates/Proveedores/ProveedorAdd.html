@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
+    <link rel="icon" type="image/x-icon" href="">
+    <title>Agregar Proveedor</title>
+</head>
+
+<body style="background: #252525;">
+
+    <header class="header">
+        <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
+        <nav class="navigation">
+            <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil <i class="fa-solid fa-user"></i></button>
+            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login <i class="fa-solid fa-user"></i></button>
+        </nav>
+    </header>
+
+    <h1 style="color: white; text-align: center;">Agregar Proveedor</h1>
+
+    <div style="text-align: center; color: white;"><br>
+        <h2>Formulario Agregar Proveedor</h2>
+        <form action="{% url 'ProductosAdd' %}" method="POST">
+            <div>
+                {% csrf_token %}
+                <label for="id_proveedor">ID Proveedor:</label>
+                <input type="text" id="id_proveedor" name="id_proveedor" placeholder="Ingrese la ID del proveedor" required>
+                <br>
+                <label for="nombre_proveedor">Nombre Proveedor:</label>
+                <input type="text" id="nombre_proveedor" name="nombre_proveedor" placeholder="Nombre del proveedor" required>
+                <br>
+                <label for="descripcion_proveedor">Descripción Proveedor:</label>
+                <textarea id="descripcion_proveedor" name="descripcion_proveedor" cols="30" rows="10" placeholder="Ingrese la descripción del proveedor" required></textarea>
+                <br>
+                <label for="cantidad_proveedor">Cantidad Proveedor:</label>
+                <input type="number" id="cantidad_proveedor" name="cantidad_proveedor" placeholder="Ingrese la cantidad del proveedor" required>
+                <br>
+                <input type="submit" id="agregar" name="opcion" value="Agregar Proveedor">
+            </div>
+        </form><br><br>
+
+        <a href="{% url 'ProductosList' %}" style="color: white;">Volver</a>
+        <br>
+        <div id="idMensajes">
+            {% if mensaje %}
+                <p>{{ mensaje }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Pantalla de cargando -->
+    <div class="loader-container">
+        <img src="{% static 'imagenes/Cargando.gif' %}" alt="Cargando...">
+    </div>
+
+    <!-- Redirecciones -->
+    <script>
+        function redireccionHome() {
+            location.href = "{% url 'Home' %}";
+        }
+
+        function redireccionPerfil() {
+            location.href = "{% url 'Perfil' %}";
+        }
+
+        function redireccionLogin() {
+            location.href = "{% url 'Login' %}";
+        }
+
+        function loader() {
+            document.querySelector('.loader-container').classList.add('fade-out');
+        }
+
+        function fadeOut() {
+            setInterval(loader, 3000);
+        }
+
+        window.onload = fadeOut;
+    </script>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
+
