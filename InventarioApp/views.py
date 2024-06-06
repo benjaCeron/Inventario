@@ -5,6 +5,8 @@ from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from .models import Proveedor
+from .forms import ProveedorForm # type: ignore
 import json
 from django.http import JsonResponse
 from django.conf import settings
@@ -237,3 +239,48 @@ def ProductosDet(request, pk):
         mensaje = f"Error: {str(e)}"
         context = {'mensaje': mensaje}
         return render(request, 'productos/ProductosDet.html', context)
+    
+
+#----------------------------------Sección Proveedores-----------------------------------------
+
+#----------------------------------Agregar Proveedores-----------------------------------------
+def proveedorList(request):
+    proveedores = proveedores.objects.all()
+    return render(request, 'proveedores/proveedorList.html', {'proveedores': proveedores})
+
+
+#----------------------------------Detalle Proveedor------------------------------------------
+def proveedorDet(request, pk):
+    proveedor = get_object_or_404(proveedor, pk=pk)
+    return render(request, 'proveedores/proveedorDet.html', {'proveedor': proveedor})
+
+#----------------------------------Agregar Proveedor------------------------------------------
+def proveedorAdd(request):
+    if request.method == "POST":
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            proveedor = form.save()
+            return redirect('proveedor_detail', pk=proveedor.pk)
+    else:
+        form = ProveedorForm()
+    return render(request, 'proveedores/proveedorAdd.html', {'form': form})
+
+#----------------------------------Modificar Proveedor------------------------------------------
+def proveedorMod(request, pk):
+    proveedor = get_object_or_404(proveedor, pk=pk)
+    if request.method == "POST":
+        form = ProveedorForm(request.POST, instance=proveedor)
+        if form.is_valid():
+            proveedor = form.save()
+            return redirect('proveedor_detail', pk=proveedor.pk)
+    else:
+        form = ProveedorForm(instance=proveedor)
+    return render(request, 'proveedores/proveedorMod.html', {'form': form})
+
+#----------------------------------Eliminar Proveedor------------------------------------------
+def proveedorElim(request, pk):
+    proveedor = get_object_or_404(proveedor, pk=pk)
+    if request.method == "POST":
+        proveedor.delete()
+        return redirect('proveedor_list')
+    return render(request, 'proveedores/proveedorElim.html', {'proveedor': proveedor})

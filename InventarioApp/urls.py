@@ -24,5 +24,11 @@ urlpatterns = [
     path('ProductosUpdate',views.ProductosUpdate, name='ProductosUpdate'),
 #----------------------------------------------------------------------------------
 
-
+#-----------------------------Proveedores------------------------------------------
+    path('ProveedorAdd', views.proveedorAdd,name='ProveedorAdd'),
+    path('ProveedorList', views.proveedorList,name='ProveedorList'),
+    path('ProveedorElim', views.proveedorElim,name='ProveedorElim'),
+    path('ProveedorDet', views.proveedorDet,name='ProveedorDet'),
+    path('ProveedorMod', views.proveedorMod,name='ProveedorMod'),
+#----------------------------------------------------------------------------------
 ]
