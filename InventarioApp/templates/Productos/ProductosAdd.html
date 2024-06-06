@@ -7,47 +7,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/AddProductos.css' %}">
     <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
-    <link rel="icon" type="image/x-icon" href="">
+    <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
     <title>Agregar productos</title>
 </head>
 
-<body style="background: #252525;">
+<body style="background-color: #868686;">
 
     <header class="header">
         <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
         <nav class=" navigation">
+            <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar<i
+                    class="fa-solid fa-reply"></i></button>
             <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
-                    class="fa-solid fa-user"></i></button>
-            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
                     class="fa-solid fa-user"></i></button>
         </nav>
     </header>
 
-    <h1>Agregar Producto</h1>
+    <div class="contenedor-formulario">
+        <h1 class="Agregar">Agregar Producto</h1>
 
-    <!-- <div style="text-align: center;"><br>
-        <h2>Formulario Agregar productos</h2>
         <form action="ProductosAdd" method="POST">
-            <div>
+            <div class="campos-formulario">
                 {% csrf_token %}
-                <pre>Id producto:  <input type="text" name="id_producto" placeholder="Ingrese la id del producto"></pre>
-                <pre>Nombre producto: <input type="text" name="nombre_producto" placeholder="Nombre del producto"></pre>
-                <pre>Descripcion producto:  <textarea name="descripcion_producto" id="" cols="30" rows="10" placeholder="ingrese la descripcion del producto"></textarea></pre>
-                <pre>Cantidad producto: <input type="text" name="cantidad_producto" placeholder="Ingrese el stock del producto"></pre>
-                <pre>Precio producto:  <input type="text" name="precio_producto" placeholder="ingrese el precio del producto"></pre>
-                <input type="submit" id="agregar" name="opcion" value="Agregar producto">
+                <div class="datos-productos">
+                    <pre>Nombre Producto</pre>
+                    <input type="text" name="nombre_producto" placeholder="Nombre del producto">
+                    <pre>Cantidad Producto</pre>
+                    <input type="text" name="cantidad_producto" placeholder="Ingrese la cantidad del producto">
+                    <pre>Precio producto</pre>
+                    <input type="text" name="precio_producto" placeholder="Ingrese el precio del producto">
+                </div>
+                <div class="descripcion-producto">
+                    <pre>Descripción Producto:  </pre>
+                    <textarea name="descripcion_producto" id="" cols="30" rows="12" maxlength="100"
+                        placeholder="Ingrese la descripcion del producto"></textarea>
+                </div>
             </div>
-        </form><br><br>
-
-        <a href="{% url 'ProductosList' %}">Volver</a>
-        <br>
-        <div id="idMensajes">
+            <input class="boton-agregar" type="submit" id="agregar" name="opcion" value="Agregar producto">
+        </form>
+        <div id="idMensajes" class="mensaje">
             {% if mensaje %}
             {{mensaje}}
             {% endif %}
         </div>
-    </div> -->
+    </div>
 
 
     <!-- Pantalla de cargando -->
@@ -59,6 +65,10 @@
     <script>
         function redireccionHome() {
             location.href = "{% url 'Home' %}"
+        }
+
+        function redireccionProductosList() {
+            location.href = "{% url 'ProductosList' %}"
         }
 
         function loader() {

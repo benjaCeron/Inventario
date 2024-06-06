@@ -7,26 +7,54 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/ElimProductos.css' %}">
   <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
   <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
-  <link rel="icon" type="image/x-icon" href="">
+  <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
   <title>Detalle Producto</title>
 </head>
 
-<body style="background-color: #252525;">
+<body style="background-color: #868686;">
 
   <header class="header">
     <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
     <nav class=" navigation">
-      <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
-          class="fa-solid fa-user"></i></button>
+      <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar<i
+          class="fa-solid fa-reply"></i></button>
       <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
           class="fa-solid fa-user"></i></button>
     </nav>
   </header>
 
-  <h1>Detalle del Producto</h1>
+  <div class="contenedor-formulario">
+    <h1 class="Agregar">Conocer Detalle del Producto</h1>
 
+    <div class="id-producto">
+      <pre>ID Producto</pre>
+      <p>{{ producto.id_producto }}</p>
+    </div>
+
+    <div class="info-producto">
+      <div class="datos-productos">
+        <div class="nombre">
+          <pre>Nombre Producto</pre>
+          <p>{{ producto.nombre_producto }}</p>
+        </div>
+        <div class="cantidad">
+          <pre>Cantidad Producto</pre>
+          <p>{{ producto.cantidad_producto }}</p>
+        </div>
+        <div class="precio">
+          <pre>Precio producto</pre>
+          <p><span id="precio">{{ producto.precio_producto }}</span></p>
+        </div>
+      </div>
+      <div class="descripcion-producto">
+        <pre>Descripción Producto</pre>
+        <p>{{ producto.descripcion_producto }}</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Pantalla de cargando -->
   <div class="loader-container">
@@ -38,6 +66,25 @@
     function redireccionHome() {
       location.href = "{% url 'Home' %}"
     }
+
+    function redireccionProductosList() {
+      location.href = "{% url 'ProductosList' %}"
+    }
+
+    function formatoPrecioChileno(precio) {
+      return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(precio);
+    }
+
+    // Obtener el elemento del precio
+    const precioElement = document.getElementById('precio');
+    // Obtener el precio en texto
+    const precioTexto = precioElement.textContent;
+    // Convertir el precio en número
+    const precioNumero = parseFloat(precioTexto);
+    // Formatear el precio en el formato chileno
+    const precioChileno = formatoPrecioChileno(precioNumero);
+    // Actualizar el contenido del elemento con el precio formateado
+    precioElement.textContent = precioChileno;
 
     function loader() {
       document.querySelector('.loader-container').classList.add('fade-out');

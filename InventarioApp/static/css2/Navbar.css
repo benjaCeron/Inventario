@@ -23,7 +23,7 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: transparent;
+    background: #252525;
     display: flex;
     justify-content: space-between;
 }
@@ -34,7 +34,7 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: rgba(255, 255, 255, .1);
+    background: #252525;
     display: flex;
     justify-content: space-between;
     align-items: space-between;

@@ -6,15 +6,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css2/listarProductos.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/ListarProductos.css' %}">
     <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
     <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="">
-    <title>Listar Productoss</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
+    <title>Listar Productos</title>
 </head>
 
 
-<body style="background-color: #252525;">
+<body style="background-color: #868686;">
 
     <header class="header">
         <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
@@ -27,48 +27,21 @@
     </header>
 
     <div class="grid-container">
+        {% for producto in productos %}
         <div class="grid-item">
-            <h1>Piano</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
+            <div class="producto">
+                <h1 class="id-producto">ID {{ producto.id_producto }}</h1>
+                <h2 class="nombre-producto">{{ producto.nombre_producto }}</h2>
+                <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
+                <p class="boton-detalle" onclick="redireccionProdDet('{{ producto.id_producto }}')">Detalle Producto<i
+                        class="fa-solid fa-circle-info"></i></p>
+                <p class="boton-modificar" onclick="redireccionProdMod('{{ producto.id_producto }}')">Modificar Producto<i
+                        class="fa-solid fa-pencil"></i></p>
+                <p class="boton-eliminar" onclick="redireccionProdElim('{{ producto.id_producto }}')">Eliminar
+                    Producto<i class="fa-solid fa-trash-can"></i></p>
+            </div>
         </div>
-        <div class="grid-item">
-            <h1>Guitarra</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
-        </div>
-        <div class="grid-item">
-            <h1>Casete</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
-        </div>
-        <div class="grid-item">
-            <h1>Bajo</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
-        </div>
-        <div class="grid-item">
-            <h1>Cuerda</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
-        </div>
-        <div class="grid-item">
-            <h1>Cuerda</h1>
-            <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
-            <p onclick="redireccionProdDet()">Detalle Producto<i class="fa-solid fa-circle-info"></i></p>
-            <p onclick="redireccionProdMod()">Modificar Producto<i class="fa-solid fa-pencil"></i></p>
-            <p onclick="redireccionProdElim()">Eliminar Producto<i class="fa-solid fa-trash-can"></i></p>
-        </div>
+        {% endfor %}
     </div>
 
     <!-- Pantalla de cargando -->
@@ -92,16 +65,16 @@
             location.href = "{% url 'ProductosAdd' %}"
         }
 
-        function redireccionProdDet() {
-            location.href = "{% url 'ProductosDet' %}"
+        function redireccionProdDet(id) {
+            location.href = "{% url 'ProductosDet' 0 %}".replace('0', id);
         }
 
-        function redireccionProdElim() {
-            location.href = "{% url 'ProductosElim' %}"
+        function redireccionProdElim(id) {
+            location.href = "{% url 'ProductosElim' 0 %}".replace('0', id);
         }
 
-        function redireccionProdMod() {
-            location.href = "{% url 'ProductosMod' %}"
+        function redireccionProdMod(id) {
+            location.href = "{% url 'ProductosMod' 0 %}".replace('0', id);
         }
 
         function loader() {
@@ -113,6 +86,7 @@
         }
 
         window.onload = fadeOut;
+
     </script>
 </body>
 

@@ -7,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/ModProductos.css' %}">
     <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
-    <link rel="icon" type="image/x-icon" href="">
+    <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
     <title>Agregar productos</title>
 </head>
 
@@ -17,38 +19,48 @@
     <header class="header">
         <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
         <nav class=" navigation">
-            <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
-                    class="fa-solid fa-user"></i></button>
+            <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar<i
+                    class="fa-solid fa-reply"></i></button>
             <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
                     class="fa-solid fa-user"></i></button>
         </nav>
     </header>
 
-    <!-- <div style="text-align: center;">
+    <div class="contenedor-formulario">
         {% if producto %}
-            <h2>Formulario Actualizar Productos</h2>
-            <form action="{% url 'ProductosMod' producto.id_producto %}" method="POST">
+        <h1 class="Agregar">Formulario Actualizar Productos</h1>
+
+        <form action="{% url 'ProductosMod' producto.id_producto %}" method="POST">
+            <div class="campos-formulario">
                 {% csrf_token %}
-                <pre>Id producto:  <input type="text" name="id_producto" value="{{producto.id_producto}}" readonly></pre>
-                <pre>Nombre:     <input type="text" name="nombre_producto" value="{{producto.nombre_producto}}"></pre>
-                <pre>Descripción:   <input type="text" name="descripcion_producto" value="{{producto.descripcion_producto}}"></pre>
-                <pre>Cantidad:      <input type="text" name="cantidad_producto" value="{{producto.stock_producto}}"></pre>
-                <pre>Precio: <input type="text" name="precio_producto" value="{{producto.precio_producto}}"></pre>
-                <input type="submit" name="opcion" id="Actualizar" value="Actualizar">
-            </form><br><br>
-        {% endif %} 
+                <div class="datos-productos">
+                    <pre>Nombre Producto</pre>
+                    <input type="text" name="nombre_producto" placeholder="Nombre del producto"
+                        value="{{producto.nombre_producto}}">
+                    <pre>Cantidad Producto</pre>
+                    <input type="text" name="cantidad_producto" placeholder="Ingrese la cantidad del producto"
+                        value="{{producto.cantidad_producto}}">
+                    <pre>Precio producto</pre>
+                    <input type="text" name="precio_producto" placeholder="Ingrese el precio del producto"
+                        value="{{producto.precio_producto}}">
+                </div>
+                <div class="descripcion-producto">
+                    <pre>Descripción Producto:  </pre>
+                    <textarea name="descripcion_producto" id="" cols="30" rows="12" maxlength="100"
+                        placeholder="Ingrese la descripcion del producto">{{ producto.descripcion_producto }}</textarea>
+                </div>
+            </div>
+            <input class="boton-actualizar" type="submit" id="actualizar" name="opcion" value="Actualizar producto">
+        </form>
+        {% endif %}
 
-        <a href="{% url 'ProductosList' %}">Volver</a>
-
-        <br>
-        <div id="idMensajes">
+        <div id="idMensajes" class="mensaje">
             {% if mensaje %}
-                {{mensaje}}
+            {{mensaje}}
             {% endif %}
         </div>
-    </div> -->
 
-    <h1>Modificar Producto</h1>
+    </div>
 
     <!-- Pantalla de cargando -->
     <div class="loader-container">
@@ -59,6 +71,10 @@
     <script>
         function redireccionHome() {
             location.href = "{% url 'Home' %}"
+        }
+
+        function redireccionProductosList() {
+            location.href = "{% url 'ProductosList' %}"
         }
 
         function loader() {

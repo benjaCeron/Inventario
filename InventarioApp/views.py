@@ -1,11 +1,20 @@
-from django.shortcuts import render, redirect
+from itertools import product
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+import json
+from django.http import JsonResponse
+from django.conf import settings
 
+
+def read_json_view(request):
+    file_path = settings.JSON_FILE_PATH
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return JsonResponse(data)
 
 #----------------------------------Inicio de Página------------------------------------------
 def Home(request):
@@ -36,118 +45,195 @@ def Login(request):
 
 #----------------------------------Agregar Producto------------------------------------------
 def ProductosAdd(request):
-    # if request.method != "POST":
-    #     productos=Producto.objects.all()
-    #     context = {'productos':productos}
-    #     return render(request,'ProductosAdd.html', context)
-    # else:
-    #     idproducto=request.POST["id_producto"]
-    #     nombre=request.POST["nombre_producto"]
-    #     descripcion=request.POST["descripcion_producto"]
-    #     cantidad=request.POST["cantidad_producto"]
-    #     precio=request.POST["precio_producto"]
-    #     obj = Producto.objects.create(id_producto = idproducto,
-    #                                   nombre_producto = nombre,
-    #                                   descripcion_producto = descripcion,
-    #                                   stock_producto = cantidad,
-    #                                   precio_producto = precio)
-        
-    #     obj.save()
-    #     context = {'mensaje': "OK, datos grabados..."}
-    #     return render(request,'ProductosAdd.html', context)
-    return render(request,'Productos\ProductosAdd.html')
+    context = {}
+    if request.method == "POST":
+        id_producto = obtener_ultimo_id() + 1  # Obtener el próximo ID disponible
+        nombre = request.POST["nombre_producto"].capitalize()
+        descripcion = request.POST["descripcion_producto"].capitalize()
+        cantidad = int(request.POST["cantidad_producto"])  # Convertir a entero
+        precio = int(request.POST["precio_producto"])  # Convertir a entero
+
+        # Crear un nuevo diccionario para el nuevo producto
+        nuevo_producto = {
+            "id_producto": id_producto,
+            "nombre_producto": nombre,
+            "descripcion_producto": descripcion,
+            "cantidad_producto": cantidad,
+            "precio_producto": precio
+        }
+
+        # Leer el archivo JSON
+        with open('Data/data.json', 'r') as archivo:
+            datos = json.load(archivo)
+
+        # Obtener la lista de productos del diccionario o crearla si no existe
+        productos_json = datos.get('productos', [])
+
+        # Agregar el nuevo producto a la lista de productos
+        productos_json.append(nuevo_producto)
+
+        # Actualizar el diccionario con la lista de productos modificada
+        datos['productos'] = productos_json
+
+        # Escribir el diccionario actualizado de nuevo al archivo JSON
+        with open('Data/data.json', 'w') as archivo:
+            json.dump(datos, archivo, indent=4)
+
+        context['mensaje'] = "OK, Producto Agregado..."
+
+    return render(request, 'productos/ProductosAdd.html', context)
+
+def obtener_ultimo_id():
+    try:
+        with open('Data/data.json', 'r') as archivo:
+            datos = json.load(archivo)
+            productos = datos.get('productos', [])  # Obtener la lista de productos del diccionario
+
+            if productos:  # Verificar si hay productos en la lista
+                ultimo_producto = productos[-1]  # Obtener el último producto de la lista
+                return ultimo_producto.get('id_producto', 0)  # Obtener el ID del último producto
+            else:
+                return 0  # Si no hay productos, devolver 0 como el último ID
+    except FileNotFoundError:
+        return 0  # Si el archivo no existe, devolver 0 como el último ID
 
 #---------------------------------Listar productos-------------------------------------------
 def ProductosList(request):
-    # productos = Producto.objects.all()
-    # context = {'productos': productos}
-    # return render(request, 'Listar_productos.html', context)
-    return render(request,'Productos\ProductosList.html')
+    file_path = settings.JSON_FILE_PATH
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    context = {'productos': data['productos']}
+    return render(request, 'productos/ProductosList.html', context)
 
 #---------------------------------Eliminar productos-----------------------------------------
-def ProductosElim(request):
-    # ,pk
-    # context={}
-    # try:
-    #     producto = Producto.objects.get(id_producto=pk)
+def ConfirmarElim(request, pk):
+    context = {}
+    try:
+        with open(settings.JSON_FILE_PATH, 'r') as file:
+            data = json.load(file)
 
-    #     producto.delete()
-    #     mensaje = "Bien, el producto fue eliminado..."
-    #     productos = {'productos': productos, 'mensaje':mensaje}
-    #     return render (request, 'Listar_productos.html', context)
-    # except:
-    #     mensaje = " Error, id no existe..."
-    #     productos = Producto.objects.all()
-    #     context = {'productos': productos, 'mensaje':mensaje}
-    #     return render( request, 'Listar_productos.html', context)
-    return render(request,'Productos\ProductosElim.html')
+        productos = data.get('productos', [])
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
+
+        if producto:
+            productos.remove(producto)
+            data['productos'] = productos
+            with open(settings.JSON_FILE_PATH, 'w') as file:
+                json.dump(data, file, indent=4)
+
+            context['mensaje'] = "Bien, el producto fue eliminado..."
+        else:
+            context['mensaje'] = "Error, el producto no existe..."
+
+        context['productos'] = productos
+        return redirect('ProductosList')  # Redirige a la lista de productos
+    except Exception as e:
+        context['mensaje'] = f"Error al eliminar el producto: {e}"
+        return render(request, 'productos/ProductosList.html', context)
+    
+def ProductosElim(request, pk):
+    try:
+        with open(settings.JSON_FILE_PATH, 'r') as file:
+            data = json.load(file)
+
+        productos = data.get('productos', [])
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
+
+        if producto:
+            mensaje = "El producto fue eliminado exitosamente."
+            context = {'producto': producto, 'mensaje': mensaje}
+            return render(request, 'productos/ProductosElim.html', context)
+        else:
+            mensaje = "Error: el ID del producto no existe."
+            context = {'mensaje': mensaje}
+            return render(request, 'productos/ProductosElim.html', context)
+    except Exception as e:
+        mensaje = f"Error: {str(e)}"
+        context = {'mensaje': mensaje}
+        return render(request, 'productos/ProductosElim.html', context)
+
+#---------------------------------Modificar productos-----------------------------------------
+def ProductosMod(request, pk):
+    try:
+        # Leer los datos del archivo JSON
+        with open(settings.JSON_FILE_PATH, 'r') as file:
+            data = json.load(file)
+
+        # Buscar el producto por su ID en los datos del archivo JSON
+        productos = data.get('productos', [])
+        producto = next((prod for prod in productos if prod['id_producto'] == int(pk)), None)
+
+        if producto:
+            if request.method == 'POST':
+                # Procesar los datos enviados en el formulario de actualización
+                producto['nombre_producto'] = request.POST.get('nombre_producto', producto['nombre_producto']).capitalize()
+                producto['descripcion_producto'] = request.POST.get('descripcion_producto', producto['descripcion_producto']).capitalize()
+                producto['cantidad_producto'] = request.POST.get('cantidad_producto', producto['cantidad_producto'])
+                producto['precio_producto'] = request.POST.get('precio_producto', producto['precio_producto'])
+
+                # Escribir los datos actualizados de vuelta al archivo JSON
+                with open(settings.JSON_FILE_PATH, 'w') as file:
+                    json.dump(data, file, indent=4)
+
+                mensaje = "Producto actualizado exitosamente."
+                context = {'producto': producto, 'mensaje': mensaje}
+                return render(request, 'productos/ProductosMod.html', context)
+            else:
+                context = {'producto': producto}
+                return render(request, 'productos/ProductosMod.html', context)
+        else:
+            mensaje = "Error: el ID del producto no existe."
+            context = {'mensaje': mensaje}
+            return render(request, 'productos/ProductosMod.html', context)
+    except Exception as e:
+        mensaje = f"Error: {str(e)}"
+        context = {'mensaje': mensaje}
+        return render(request, 'productos/ProductosMod.html', context)
 
 
-def ProductosMod(request):
-    # , pk
-    # if pk != "":
-    #     producto = get_object_or_404(Producto, id_producto=pk)
-    #     if request.method == 'POST':
-    #         # Procesar los datos enviados en el formulario de actualización
-    #         producto.nombre_producto = request.POST.get('nombre_producto', '')
-    #         producto.descripcion_producto = request.POST.get('descripcion_producto', '')
-    #         producto.stock_producto = request.POST.get('cantidad_producto', '')
-    #         producto.precio_producto = request.POST.get('precio_producto', '')
-    #         producto.save()
-    #         mensaje = "Producto actualizado exitosamente."
-    #         context = {'producto': producto, 'mensaje': mensaje}
-    #     else:
-    #         context = {'producto': producto}
-    #     return render(request, 'ProductosMod.html', context)
-    # else:
-    #     context = {'mensaje': "Error, ID vacío..."}
-    #     return render(request, 'ProductosMod.html', context)
-    return render(request,'Productos\ProductosMod.html')
 
+def ProductosUpdate(request):
+     if request.method == "POST":
+         idproducto=request.POST["id_producto"]
+         nombre=request.POST["nombre_producto"]
+         descripcion=request.POST["descripcion_producto"]
+         cantidad=request.POST["cantidad_producto"]
+         precio=request.POST["precio_producto"]
 
-# def ProductosUpdate(request):
-#     if request.method == "POST":
-#         idproducto=request.POST["id_producto"]
-#         nombre=request.POST["nombre_producto"]
-#         descripcion=request.POST["descripcion_producto"]
-#         cantidad=request.POST["cantidad_producto"]
-#         precio=request.POST["precio_producto"]
-
-#         producto = Producto()
+         producto = producto()
         
-#         producto.id_producto=idproducto
-#         producto.nombre_producto=nombre
-#         producto.descripcion_producto=descripcion
-#         producto.stock_producto=cantidad
-#         producto.precio_producto=precio
-#         producto.save()
+         producto.id_producto=idproducto
+         producto.nombre_producto=nombre
+         producto.descripcion_producto=descripcion
+         producto.stock_producto=cantidad
+         producto.precio_producto=precio
+         producto.save()
 
-#         context = {'mensaje': "Ok, datos actualizados..."}
-#         return render(request, 'ProductosMod.html', context)
-#     else:
-#         productos = Producto.objects.all()
-#         context = {'productos': productos}
-#         return render(request,  'Listar_productos.html', context)
+         context = {'mensaje': "Ok, datos actualizados..."}
+         return render(request, 'ProductosMod.html', context)
+     else:
+         productos = producto.objects.all()
+         context = {'productos': productos}
+         return render(request,  'productos/ProductosList.html', context)
 
 #----------------------------------Detalle Producto------------------------------------------
-def ProductosDet(request):
-    # if request.method != "POST":
-    #     productos=Producto.objects.all()
-    #     context = {'productos':productos}
-    #     return render(request,'ProductosAdd.html', context)
-    # else:
-    #     idproducto=request.POST["id_producto"]
-    #     nombre=request.POST["nombre_producto"]
-    #     descripcion=request.POST["descripcion_producto"]
-    #     cantidad=request.POST["cantidad_producto"]
-    #     precio=request.POST["precio_producto"]
-    #     obj = Producto.objects.create(id_producto = idproducto,
-    #                                   nombre_producto = nombre,
-    #                                   descripcion_producto = descripcion,
-    #                                   stock_producto = cantidad,
-    #                                   precio_producto = precio)
-        
-    #     obj.save()
-    #     context = {'mensaje': "OK, datos grabados..."}
-    #     return render(request,'ProductosAdd.html', context)
-    return render(request,'Productos\ProductosDet.html')
+def ProductosDet(request, pk):
+    try:
+        with open(settings.JSON_FILE_PATH, 'r') as file:
+            data = json.load(file)
+
+        productos = data.get('productos', [])
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
+
+        if producto:
+            mensaje = "El producto fue encontrado exitosamente."
+            context = {'producto': producto, 'mensaje': mensaje}
+            return render(request, 'productos/ProductosDet.html', context)
+        else:
+            mensaje = "Error: el ID del producto no existe."
+            context = {'mensaje': mensaje}
+            return render(request, 'productos/ProductosDet.html', context)
+    except Exception as e:
+        mensaje = f"Error: {str(e)}"
+        context = {'mensaje': mensaje}
+        return render(request, 'productos/ProductosDet.html', context)
