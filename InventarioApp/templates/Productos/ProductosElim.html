@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <form action="{% url 'ProductosElim' producto.id_producto %}" method="post">
+        <form action="{% url 'ConfirmarElim' producto.id_producto %}" method="post">
             {% csrf_token %}
             <button class="boton-eliminar" type="submit">Confirmar Eliminación</button>
         </form>

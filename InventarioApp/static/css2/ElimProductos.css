@@ -149,5 +149,5 @@
 
 .contenedor-formulario .info-producto .descripcion-producto p {
     margin-top: 1rem;
-    max-width: 20rem;
+    width: 10rem;
 }
