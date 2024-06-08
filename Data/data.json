@@ -34,13 +34,6 @@
             "precio_producto": 139990,
             "cantidad_producto": 3,
             "descripcion_producto": "A 5-piece drum set with cymbals."
-        },
-        {
-            "id_producto": 7,
-            "nombre_producto": "Flauta",
-            "descripcion_producto": "Flauta dulce",
-            "cantidad_producto": 6,
-            "precio_producto": 5990
         }
     ]
 }
