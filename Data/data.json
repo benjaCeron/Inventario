@@ -35,5 +35,40 @@
             "cantidad_producto": 3,
             "descripcion_producto": "A 5-piece drum set with cymbals."
         }
+    ],
+    "Categorias": [
+        {
+            "id_producto": 1,
+            "nombre_producto": "Guitarra",
+            "precio_producto": 159990,
+            "cantidad_producto": 3,
+            "descripcion_producto": "A 5-piece drum set with cymbals."
+        },
+        {
+            "id_producto": 2,
+            "nombre_producto": "Bajo",
+            "precio_producto": "299990",
+            "cantidad_producto": "5",
+            "descripcion_producto": "Es el miembro m\u00e1s grave de la familia de las guitarras. es un instrumento de cuerda pulsada similar "
+        },
+        {
+            "id_producto": 3,
+            "nombre_producto": "Violin",
+            "precio_producto": 199990,
+            "cantidad_producto": 15,
+            "descripcion_producto": "A full-size violin with bow and case."
+        },
+        {
+            "id_producto": 4,
+            "nombre_producto": "Bateria",
+            "precio_producto": 699990,
+            "cantidad_producto": 3,
+            "descripcion_producto": "A 5-piece drum set with cymbals."
+        },
+        {
+            "id_producto": 6,
+            "nombre_producto": "Trompeta",
+            "descripcion_producto": "A 5-piece drum set with cymbals."
+        }
     ]
 }
