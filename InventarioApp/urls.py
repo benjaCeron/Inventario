@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('read-json/', read_json_view, name='read_json'),
     path('admin/', admin.site.urls),
-    path('index', views.Home,name='Home'),
+    path('', views.Home,name='Home'),
 
 #-----------------------------Usuarios---------------------------------------------
     path('Login', views.Login,name='Login'),
