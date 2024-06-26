@@ -5,11 +5,11 @@ from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .models import Proveedor
-# from .forms import ProveedorForm # type: ignore
 import json
 from django.http import JsonResponse
 from django.conf import settings
+from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
 
 
 def read_json_view(request):
@@ -49,39 +49,46 @@ def Login(request):
 def ProductosAdd(request):
     context = {}
     if request.method == "POST":
-        id_producto = obtener_ultimo_id() + 1  # Obtener el próximo ID disponible
+        id_producto = obtener_ultimo_id() + 1
         nombre = request.POST["nombre_producto"].capitalize()
         descripcion = request.POST["descripcion_producto"].capitalize()
-        cantidad = int(request.POST["cantidad_producto"])  # Convertir a entero
-        precio = int(request.POST["precio_producto"])  # Convertir a entero
+        cantidad = int(request.POST["cantidad_producto"])
+        precio = float(request.POST["precio_producto"])
 
-        # Crear un nuevo diccionario para el nuevo producto
-        nuevo_producto = {
-            "id": id_producto,
-            "nombre_producto": nombre,
-            "descripcion_producto": descripcion,
-            "cantidad_producto": cantidad,
-            "precio_producto": precio
-        }
+        if cantidad <= 0 or precio <= 0:
+            context['mensaje'] = "Cantidad y precio deben ser mayores a 0."
+        else:
+            imagen = request.FILES.get('imagen_producto')
+            if imagen:
+                fs = FileSystemStorage(location='inventarioApp/static/imagenes/Productos')
+                filename = fs.save(imagen.name, imagen)
+                imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
+                if imagen_url.startswith('/media/'):
+                    # Si comienza con '/media/', reemplazar 'media/' con ''
+                    imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
+            else:
+                imagen_url = None
 
-        # Leer el archivo JSON
-        with open('Data/data.json', 'r') as archivo:
-            datos = json.load(archivo)
+            nuevo_producto = {
+                "id_producto": id_producto,
+                "nombre_producto": nombre,
+                "descripcion_producto": descripcion,
+                "cantidad_producto": cantidad,
+                "precio_producto": precio,
+                "imagen_producto": imagen_url  # Guardar la URL relativa sin 'media/' en el JSON
+            }
 
-        # Obtener la lista de productos del diccionario o crearla si no existe
-        productos_json = datos.get('productos', [])
+            with open('Data/data.json', 'r') as archivo:
+                datos = json.load(archivo)
 
-        # Agregar el nuevo producto a la lista de productos
-        productos_json.append(nuevo_producto)
+            productos_json = datos.get('productos', [])
+            productos_json.append(nuevo_producto)
+            datos['productos'] = productos_json
 
-        # Actualizar el diccionario con la lista de productos modificada
-        datos['productos'] = productos_json
+            with open('Data/data.json', 'w') as archivo:
+                json.dump(datos, archivo, indent=4)
 
-        # Escribir el diccionario actualizado de nuevo al archivo JSON
-        with open('Data/data.json', 'w') as archivo:
-            json.dump(datos, archivo, indent=4)
-
-        context['mensaje'] = "OK, Producto Agregado..."
+            context['mensaje'] = "OK, Producto Agregado..."
 
     return render(request, 'productos/ProductosAdd.html', context)
 
@@ -93,7 +100,7 @@ def obtener_ultimo_id():
 
             if productos:  # Verificar si hay productos en la lista
                 ultimo_producto = productos[-1]  # Obtener el último producto de la lista
-                return ultimo_producto.get('id', 0)  # Obtener el ID del último producto
+                return ultimo_producto.get('id_producto', 0)  # Obtener el ID del último producto
             else:
                 return 0  # Si no hay productos, devolver 0 como el último ID
     except FileNotFoundError:
@@ -115,7 +122,7 @@ def ConfirmarElim(request, pk):
             data = json.load(file)
 
         productos = data.get('productos', [])
-        producto = next((prod for prod in productos if prod['id'] == pk), None)
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
 
         if producto:
             productos.remove(producto)
@@ -139,7 +146,7 @@ def ProductosElim(request, pk):
             data = json.load(file)
 
         productos = data.get('productos', [])
-        producto = next((prod for prod in productos if prod['id'] == pk), None)
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
 
         if producto:
             mensaje = "El producto fue eliminado exitosamente."
@@ -163,7 +170,7 @@ def ProductosMod(request, pk):
 
         # Buscar el producto por su ID en los datos del archivo JSON
         productos = data.get('productos', [])
-        producto = next((prod for prod in productos if prod['id'] == int(pk)), None)
+        producto = next((prod for prod in productos if prod['id_producto'] == int(pk)), None)
 
         if producto:
             if request.method == 'POST':
@@ -196,7 +203,7 @@ def ProductosMod(request, pk):
 
 def ProductosUpdate(request):
      if request.method == "POST":
-         idproducto=request.POST["id"]
+         idproducto=request.POST["id_producto"]
          nombre=request.POST["nombre_producto"]
          descripcion=request.POST["descripcion_producto"]
          cantidad=request.POST["cantidad_producto"]
@@ -204,7 +211,7 @@ def ProductosUpdate(request):
 
          producto = producto()
         
-         producto.id=idproducto
+         producto.id_producto=idproducto
          producto.nombre_producto=nombre
          producto.descripcion_producto=descripcion
          producto.stock_producto=cantidad
@@ -225,7 +232,7 @@ def ProductosDet(request, pk):
             data = json.load(file)
 
         productos = data.get('productos', [])
-        producto = next((prod for prod in productos if prod['id'] == pk), None)
+        producto = next((prod for prod in productos if prod['id_producto'] == pk), None)
 
         if producto:
             mensaje = "El producto fue encontrado exitosamente."

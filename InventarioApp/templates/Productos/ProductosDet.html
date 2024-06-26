@@ -48,6 +48,14 @@
           <pre>Precio producto</pre>
           <p><span id="precio">{{ producto.precio_producto }}</span></p>
         </div>
+        <div class="imagen">
+          <pre>Imagen del producto</pre>
+          {% if producto.imagen_producto %}
+            <img src="{{ producto.imagen_producto }}" alt="Imagen de {{ producto.nombre_producto }}">
+          {% else %}
+            <p>No hay imagen disponible</p>
+          {% endif %}
+        </div>
       </div>
       <div class="descripcion-producto">
         <pre>Descripción Producto</pre>

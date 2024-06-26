@@ -30,9 +30,9 @@
         {% for producto in productos %}
         <div class="grid-item">
             <div class="producto">
-                <h1 class="id-producto">ID {{ producto.id }}</h1>
+                <h1 class="id-producto">ID {{ producto.id_producto }}</h1>
                 <h2 class="nombre-producto">{{ producto.nombre_producto }}</h2>
-                <img src="{% static 'imagenes/opciones/caja.png' %}" alt="">
+                <img src="{{ producto.imagen_producto }}" alt="">
                 <p class="boton-detalle" onclick="redireccionProdDet('{{ producto.id_producto }}')">Detalle Producto<i
                         class="fa-solid fa-circle-info"></i></p>
                 <p class="boton-modificar" onclick="redireccionProdMod('{{ producto.id_producto }}')">Modificar Producto<i
