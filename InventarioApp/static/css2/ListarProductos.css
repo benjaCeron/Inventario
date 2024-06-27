@@ -163,6 +163,7 @@ header {
     width: 10rem;
     height: 10rem;
     user-select: none;
+    border: 0.2rem solid #fff;
     border-radius: 0.2rem;
 }
 
