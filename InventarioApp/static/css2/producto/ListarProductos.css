@@ -150,12 +150,10 @@ header {
     border-bottom-left-radius: 1rem;
     padding: 2rem 1rem 2rem 1rem;
     cursor: pointer;
-    background-color: #5d5c5c;
+    background-color: #113743;
 }
 
 .grid-item img {
-    margin-top: auto;
-    margin-bottom: auto;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
     align-items: center;
@@ -165,6 +163,7 @@ header {
     user-select: none;
     border: 0.2rem solid #fff;
     border-radius: 0.2rem;
+    user-select: none;
 }
 
 .grid-item .id-producto {
@@ -182,6 +181,7 @@ header {
     font-size:25px;
     border-radius: 5px 5px 5px 5px;
     padding: 1rem 2rem 1rem 2rem;
+    margin-bottom: 1rem;
     text-align: center;
     user-select: none;
     color: #fff;

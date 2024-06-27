@@ -1,33 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding-top: 8rem;
+    background-size: cover;
+    background-position: center;
+    background-color: #aca9a9;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #252525;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, .2);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255, .4), transparent);
+    transition: .8s;
+}
+
+.header:hover::before {
+    left: 100%;
+}
+
+.logo {
+    font-size: 30px;
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: .5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #fff;
+    color: black;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2.5rem;
+    margin: 2rem; /* Agrega margen a los lados del contenedor */
 }
 
 .grid-item {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 0.2rem solid #252525;
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
-    padding: 2rem 1rem 2rem 1rem;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2.5rem;
+    padding: 2rem 1rem;
     cursor: pointer;
+    text-align: center;
 }
 
 .grid-item h1 {
     text-align: center;
     user-select: none;
     color: #252525;
+    margin: 1rem 0;
 }
 
 .grid-item img {
     margin: auto;
-    align-items: center;
+    display: block;
     width: 10rem;
     height: 10rem;
     user-select: none;
     border-radius: 0.2rem;
+}
+
+/* Loader styles */
+.loader-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+}
+
+.loader-container img {
+    width: 100px;
+    height: 100px;
+}
+
+.fade-out {
+    display: none;
 }
