@@ -9,10 +9,10 @@
 
 body {
     min-height: 100vh;
-    padding-top: 8rem;
+    padding-top: 6rem;
     background-size: cover;
     background-position: center;
-    background-color: #aca9a9;
+    background-color: #E4E3DB;
 }
 
 header {
@@ -26,7 +26,7 @@ header {
     justify-content: space-between;
     align-items: center;
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid rgba(255, 255, 255, .2);
+    border-bottom: 3px solid rgb(92, 6, 6);
 }
 
 .header::before {
@@ -92,18 +92,19 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 0.2rem solid #252525;
+    border: 0.2rem solid #C5BEBA;
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
     padding: 2rem 1rem;
     cursor: pointer;
     text-align: center;
+    background-color: #113743;
 }
 
 .grid-item h1 {
     text-align: center;
     user-select: none;
-    color: #252525;
+    color: #C5BEBA;
     margin: 1rem 0;
 }
 
@@ -114,27 +115,4 @@ header {
     height: 10rem;
     user-select: none;
     border-radius: 0.2rem;
-}
-
-/* Loader styles */
-.loader-container {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 1000;
-}
-
-.loader-container img {
-    width: 100px;
-    height: 100px;
-}
-
-.fade-out {
-    display: none;
 }

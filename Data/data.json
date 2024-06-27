@@ -3,70 +3,59 @@
         {
             "id_producto": 1,
             "nombre_producto": "Guitarra",
-            "precio_producto": 159990,
-            "cantidad_producto": 3,
-            "descripcion_producto": "A 5-piece drum set with cymbals."
-        },
-        {
-            "id_producto": 2,
-            "nombre_producto": "Bajo",
-            "precio_producto": "299990",
-            "cantidad_producto": "5",
-            "descripcion_producto": "Es el miembro m\u00e1s grave de la familia de las guitarras. es un instrumento de cuerda pulsada similar "
-        },
-        {
-            "id_producto": 3,
-            "nombre_producto": "Violin",
-            "precio_producto": 199990,
-            "cantidad_producto": 15,
-            "descripcion_producto": "A full-size violin with bow and case."
-        },
-        {
-            "id_producto": 6,
-            "nombre_producto": "Trompeta",
-            "precio_producto": 139990,
-            "cantidad_producto": 3,
-            "descripcion_producto": "A 5-piece drum set with cymbals."
-        },
-        {
-            "id_producto": 7,
-            "nombre_producto": "Guitarra",
-            "descripcion_producto": "Vdvdsv",
-            "cantidad_producto": 43,
-            "precio_producto": 3333,
-            "imagen_producto": "/Capa-1-1-400x400.jpg"
-        },
-        {
-            "id_producto": 8,
-            "nombre_producto": "Bajo",
-            "descripcion_producto": "Cdcdncjdfjf",
-            "cantidad_producto": 4,
-            "precio_producto": 54.0,
-            "imagen_producto": "/media/istockphoto-1367723112-612x612.jpg"
-        },
-        {
-            "id_producto": 10,
-            "nombre_producto": "Fvdacdacd",
             "descripcion_producto": "Bfdbfdvdvf",
             "cantidad_producto": 5634,
             "precio_producto": 3522.0,
-            "imagen_producto": "istockphoto-1367723112-612x612_rUGKLRl.jpg"
+            "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
         },
         {
-            "id_producto": 11,
-            "nombre_producto": "Vfdsvsvsd",
+            "id_producto": 2,
+            "nombre_producto": "Bateria",
             "descripcion_producto": "Bfdbfdbfd",
             "cantidad_producto": 532523,
             "precio_producto": 53235252.0,
             "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
         },
         {
-            "id_producto": 12,
-            "nombre_producto": "Vdvsdvds",
+            "id_producto": 3,
+            "nombre_producto": "Bajo",
             "descripcion_producto": "Bfdbdfbfdbfd",
             "cantidad_producto": 241414,
             "precio_producto": 3424242.0,
-            "imagen_producto": "/static/imagenes/Productos/Mazinger%20Z%20contra%20el%20general%20negro.jpg"
+            "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
+        },
+        {
+            "id_producto": 4,
+            "nombre_producto": "Flauta",
+            "descripcion_producto": "Bhbhvghvg",
+            "cantidad_producto": 65657,
+            "precio_producto": 656567.0,
+            "imagen_producto": "/static/imagenes/Productos/13_hola.jpg"
+        },
+        {
+            "id_producto": 5,
+            "nombre_producto": "Piano Electrico",
+            "descripcion_producto": "Bhbhvghvg",
+            "cantidad_producto": 65657,
+            "precio_producto": 656567.0,
+            "imagen_producto": ""
+        }
+    ],
+    "productos_Aprobados": [
+        {
+            "id": 1,
+            "nombre_producto_aprobado": "Arpa",
+            "estado_producto_aprobado": "Aceptado"
+        },
+        {
+            "id": 2,
+            "nombre_producto_aprobado": "Piano",
+            "estado_producto_aprobado": "Aceptado"
+        },
+        {
+            "id": 3,
+            "nombre_producto_aprobado": "Casset 1990",
+            "estado_producto_aprobado": "Aceptado"
         }
     ]
 }

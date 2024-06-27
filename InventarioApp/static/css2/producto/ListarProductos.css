@@ -12,6 +12,7 @@ body {
     padding-top: 8rem;
     background-size: cover;
     background-position: center;
+    background-color: #E4E3DB;
     
 }
 
@@ -21,7 +22,7 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: #252525;
+    background: #C5001A;
     display: flex;
     justify-content: space-between;
 }
@@ -32,12 +33,12 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: #252525;
+    background: #C5001A;
     display: flex;
     justify-content: space-between;
     align-items: space-between;
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid rgba(255, 255, 255, .2);
+    border-bottom: 3px solid rgb(98, 9, 9);
 }
 
 .header::before {
@@ -145,7 +146,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 0.2rem solid #fff;
+    border: 0.2rem solid #C5BEBA;
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
     padding: 2rem 1rem 2rem 1rem;
@@ -236,4 +237,15 @@ header {
 .grid-item .boton-eliminar:hover{
     background: #FF0000;
     color: #252525;
+}
+
+.Titulo{ 
+    display: flex;
+    font-size:30px;
+    text-align: center;
+    user-select: none;
+    color: #252525;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }

@@ -14,7 +14,7 @@
   <title>Inicio</title>
 </head>
 
-<body style="background-color: #aca9a9;">
+<body>
 
   <header class="header">
     <h2 class="logo" onclick="redireccionHome()">Galaxy Music</h2>
@@ -39,7 +39,7 @@
     <div class="grid-item">
       <h1>Sub-Categorías</h1>
     </div>
-    <div class="grid-item">
+    <div class="grid-item" onclick="redireccionProductosAprobadosList()">
       <h1>Lista productos aprobados</h1>
     </div>
     <div class="grid-item">
@@ -65,6 +65,10 @@
 
     function redireccionProductosList() {
       location.href = "{% url 'ProductosList' %}"
+    }
+
+    function redireccionProductosAprobadosList() {
+      location.href = "{% url 'ListaProductosAprobados' %}"
     }
 
     function redireccionHome() {

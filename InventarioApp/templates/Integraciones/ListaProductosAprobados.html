@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
     <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
-    <title>Listar Productos</title>
+    <title>Listar Productos Aprobados</title>
 </head>
 
 
@@ -19,26 +19,20 @@
     <header class="header">
         <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
         <nav class=" navigation">
-            <button class="btn-popup-Agregar" type="button" onclick="redireccionProdAdd()">Agregar Producto<i
-                    class="fa-solid fa-circle-plus"></i></button>
             <button class="btnLogin-popup" type="button" onclick="redireccionPerfil()">Perfil<i
                     class="fa-solid fa-user"></i></button>
         </nav>
     </header>
 
+    <h1 class="Titulo">Lista de Productos Aprobados por el Departamento de Analisis de Productos</h1>
+
     <div class="grid-container">
-        {% for producto in productos %}
+        {% for producto in productos_Aprobados %}
         <div class="grid-item">
             <div class="producto">
-                <h1 class="id-producto">ID {{ producto.id_producto }}</h1>
-                <h2 class="nombre-producto">{{ producto.nombre_producto }}</h2>
-                <img src="{{ producto.imagen_producto }}" alt="">
-                <p class="boton-detalle" onclick="redireccionProdDet('{{ producto.id_producto }}')">Detalle Producto<i
-                        class="fa-solid fa-circle-info"></i></p>
-                <p class="boton-modificar" onclick="redireccionProdMod('{{ producto.id_producto }}')">Modificar Producto<i
-                        class="fa-solid fa-pencil"></i></p>
-                <p class="boton-eliminar" onclick="redireccionProdElim('{{ producto.id_producto }}')">Eliminar
-                    Producto<i class="fa-solid fa-trash-can"></i></p>
+                <h1 class="id-producto">ID {{ producto.id }}</h1>
+                <h2 class="nombre-producto">{{ producto.nombre_producto_aprobado}}</h2>
+                <p class="nombre-producto"> {{ producto.estado_producto_aprobado}}</p>
             </div>
         </div>
         {% endfor %}

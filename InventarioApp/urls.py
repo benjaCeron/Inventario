@@ -32,4 +32,10 @@ urlpatterns = [
     # path('ProveedorDet', views.proveedorDet,name='ProveedorDet'),
     # path('ProveedorMod', views.proveedorMod,name='ProveedorMod'),
 #----------------------------------------------------------------------------------
+
+#-----------------------------Integraciones------------------------------------------
+    path('ListaProductosAprobados/', views.ProductosAprobadosList,name='ListaProductosAprobados'),
+    # path('ProveedorList', views.proveedorList,name='ProveedorList'),
+    # path('ProveedorElim', views.proveedorElim,name='ProveedorElim'),
+#----------------------------------------------------------------------------------
 ]

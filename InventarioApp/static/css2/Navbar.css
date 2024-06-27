@@ -12,9 +12,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('static /imagenes/background.jpg') no-repeat;
     background-size: cover;
     background-position: center;
+    background-color: #E4E3DB;
 }
 
 header {
@@ -39,7 +39,7 @@ header {
     justify-content: space-between;
     align-items: space-between;
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid rgba(255, 255, 255, .2);
+    border-bottom: 3px solid rgb(98, 9, 9);
 }
 
 .header::before {

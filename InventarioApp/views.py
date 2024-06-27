@@ -8,8 +8,8 @@ from django.http import HttpResponse
 import json
 from django.http import JsonResponse
 from django.conf import settings
-from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
+from django.utils.text import slugify
 
 
 def read_json_view(request):
@@ -60,8 +60,10 @@ def ProductosAdd(request):
         else:
             imagen = request.FILES.get('imagen_producto')
             if imagen:
+                # Crear un nombre de archivo seguro
+                imagen_name = f"{id_producto}_{slugify(nombre)}.{imagen.name.split('.')[-1]}"
                 fs = FileSystemStorage(location='inventarioApp/static/imagenes/Productos')
-                filename = fs.save(imagen.name, imagen)
+                filename = fs.save(imagen_name, imagen)
                 imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
                 if imagen_url.startswith('/media/'):
                     # Si comienza con '/media/', reemplazar 'media/' con ''
@@ -291,3 +293,13 @@ def ProductosDet(request, pk):
 #         proveedor.delete()
 #         return redirect('proveedor_list')
 #     return render(request, 'proveedores/proveedorElim.html', {'proveedor': proveedor})
+
+# #----------------------------------Integraciones------------------------------------------
+
+# #----------------------------------Lista Productos Aprobados------------------------------------------
+def ProductosAprobadosList(request):
+    file_path = settings.JSON_FILE_PATH
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    context = {'productos_Aprobados': data['productos_Aprobados']}
+    return render(request, 'Integraciones/ListaProductosAprobados.html', context)
