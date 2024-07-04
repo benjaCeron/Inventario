@@ -111,10 +111,15 @@ def obtener_ultimo_id():
 #---------------------------------Listar productos-------------------------------------------
 def ProductosList(request):
     file_path = settings.JSON_FILE_PATH
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-    context = {'productos': data['productos']}
-    return render(request, 'productos/ProductosList.html', context)
+    if not os.path.exists(file_path):
+        return JsonResponse({"error": "File not found"}, status=404)
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        context = {'productos': data['productos']}
+        return render(request, 'productos/ProductosList.html', context)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 #---------------------------------Eliminar productos-----------------------------------------
 def ConfirmarElim(request, pk):
