@@ -1,0 +1,26 @@
+import { addCategory, getCategories, getCategory, updateCategory, deleteCategory } from '../src/services/categoryService';
+
+test('should add a category', () => {
+    const category = addCategory('Electronics');
+    expect(category.name).toBe('Electronics');
+    expect(getCategories()).toContain(category);
+});
+
+test('should update a category', () => {
+    const category = addCategory('Books');
+    const updatedCategory = updateCategory(category.id, 'Literature');
+    expect(updatedCategory.name).toBe('Literature');
+});
+
+test('should delete a category', () => {
+    const category = addCategory('Clothing');
+    const result = deleteCategory(category.id);
+    expect(result).toBe(true);
+    expect(getCategories()).not.toContain(category);
+});
+
+test('should get a category by id', () => {
+    const category = addCategory('Furniture');
+    const fetchedCategory = getCategory(category.id);
+    expect(fetchedCategory).toEqual(category);
+});
