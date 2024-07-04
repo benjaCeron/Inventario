@@ -1,36 +1,94 @@
-// Servicio para gestionar categorías
-const categories = [];
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
 
-export const addCategory = (name) => {
-    const category = { id: Date.now(), name };
-    categories.push(category);
-    return category;
-};
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css2/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/Categoria/ModCategoria.css' %}">
+    <link rel="stylesheet" href="{% static 'css2/loader.css' %}">
+    <script src="https://kit.fontawesome.com/6a284d15f6.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guitarra-logo.png' %}">
+    <title>Agregar Categoría</title>
+</head>
 
-export const getCategories = () => {
-    return categories;
-};
+<body style="background: #252525;">
 
-export const getCategory = (id) => {
-    return categories.find(cat => cat.id === id);
-};
+    <header class="header">
+        <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
+        <nav class=" navigation">
+            <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar Categorías<i
+                    class="fa-solid fa-reply"></i></button>
+            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
+                    class="fa-solid fa-user"></i></button>
+        </nav>
+    </header>
 
-export const updateCategory = (id, newName) => {
-    const category = categories.find(cat => cat.id === id);
-    if (category) {
-        category.name = newName;
-        return category;
-    } else {
-        throw new Error('Category not found');
-    }
-};
+    <div class="contenedor-formulario">
+        {% if producto %}
+        <h1 class="Agregar">Formulario Actualizar Productos</h1>
 
-export const deleteCategory = (id) => {
-    const index = categories.findIndex(cat => cat.id === id);
-    if (index !== -1) {
-        categories.splice(index, 1);
-        return true;
-    } else {
-        throw new Error('Category not found');
-    }
-};
+        <form action="{% url 'ProductosMod' producto.id_producto %}" method="POST">
+            <div class="campos-formulario">
+                {% csrf_token %}
+                <div class="datos-productos">
+                    <pre>Nombre Producto</pre>
+                    <input type="text" name="nombre_producto" placeholder="Nombre del producto"
+                        value="{{producto.nombre_producto}}">
+                    <pre>Cantidad Producto</pre>
+                    <input type="number" name="cantidad_producto" placeholder="Ingrese la cantidad del producto"
+                        value="{{producto.cantidad_producto}}">
+                    <pre>Precio producto</pre>
+                    <input type="number" name="precio_producto" placeholder="Ingrese el precio del producto"
+                        value="{{producto.precio_producto}}">
+                </div>
+                <div class="descripcion-producto">
+                    <pre>Descripción Producto:  </pre>
+                    <textarea name="descripcion_producto" id="" cols="30" rows="12" maxlength="100"
+                        placeholder="Ingrese la descripcion del producto">{{ producto.descripcion_producto }}</textarea>
+                </div>
+            </div>
+            <input class="boton-actualizar" type="submit" id="actualizar" name="opcion" value="Actualizar producto">
+        </form>
+        {% endif %}
+
+        <div id="idMensajes" class="mensaje">
+            {% if mensaje %}
+            {{mensaje}}
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- Pantalla de cargando -->
+    <div class="loader-container">
+        <img src="{% static 'imagenes/Cargando.gif' %}" alt="">
+    </div>
+
+    <!-- Redirecciones -->
+    <script>
+        function redireccionHome() {
+            location.href = "{% url 'Home' %}"
+        }
+
+        function redireccionProductosList() {
+            location.href = "{% url 'ProductosList' %}"
+        }
+
+        function loader() {
+            document.querySelector('.loader-container').classList.add('fade-out');
+        }
+
+        function fadeOut() {
+            setInterval(loader, 3000);
+        }
+
+        window.onload = fadeOut;
+    </script>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

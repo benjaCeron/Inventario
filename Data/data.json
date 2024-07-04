@@ -20,9 +20,9 @@
             "id_producto": 3,
             "nombre_producto": "Bajo",
             "descripcion_producto": "Bfdbdfbfdbfd",
-            "cantidad_producto": 241414,
-            "precio_producto": 3424242.0,
-            "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
+            "cantidad_producto": "241414",
+            "precio_producto": "3424242.0",
+            "imagen_producto": "/static/imagenes/Productos/3_bajo_MI2P2Dc.jpg"
         },
         {
             "id_producto": 4,
@@ -34,11 +34,11 @@
         },
         {
             "id_producto": 5,
-            "nombre_producto": "Piano Electrico",
+            "nombre_producto": "Piano electrico",
             "descripcion_producto": "Bhbhvghvg",
-            "cantidad_producto": 65657,
-            "precio_producto": 656567.0,
-            "imagen_producto": ""
+            "cantidad_producto": "65657",
+            "precio_producto": "656567.0",
+            "imagen_producto": "/static/imagenes/Productos/5_piano-electrico.jpg"
         }
     ],
     "productos_Aprobados": [

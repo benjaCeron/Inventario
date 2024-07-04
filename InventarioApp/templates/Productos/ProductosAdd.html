@@ -40,7 +40,10 @@
                     <pre>Precio producto</pre>
                     <input type="number" name="precio_producto" placeholder="Ingrese el precio del producto">
                     <pre>Imagen del producto</pre>
-                    <input type="file" name="imagen_producto">
+                    <input type="file" name="imagen_producto" id="imagen_producto" accept="image/*" onchange="previsualizarImagen(event)">
+                    <div id="preview-container">
+                        <img id="preview-image" src="#" alt="Previsualización de la imagen" style="display: none; max-width: 100%; height: auto;">
+                    </div>
                 </div>
                 <div class="descripcion-producto">
                     <pre>Descripción Producto:  </pre>
@@ -79,6 +82,19 @@
 
         function fadeOut() {
             setInterval(loader, 3000);
+        }
+
+        function previsualizarImagen(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
         }
 
         window.onload = fadeOut;

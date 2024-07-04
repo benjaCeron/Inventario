@@ -18,11 +18,11 @@
 
     <header class="header">
         <h2 class="logo text-black" type="button" onclick="redireccionHome()">Galaxy Music</h2>
-        <nav class=" navigation">
-            <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar<i
-                    class="fa-solid fa-reply"></i></button>
-            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login<i
-                    class="fa-solid fa-user"></i></button>
+        <nav class="navigation">
+            <button class="btn-popup-Volver" type="button" onclick="redireccionProductosList()">Volver a Listar Productos
+                <i class="fa-solid fa-reply"></i></button>
+            <button class="btnLogin-popup" type="button" onclick="redireccionLogin()">Login
+                <i class="fa-solid fa-user"></i></button>
         </nav>
     </header>
 
@@ -30,24 +30,27 @@
         {% if producto %}
         <h1 class="Agregar">Formulario Actualizar Productos</h1>
 
-        <form action="{% url 'ProductosMod' producto.id_producto %}" method="POST">
+        <form action="{% url 'ProductosMod' producto.id_producto %}" method="POST" enctype="multipart/form-data">
             <div class="campos-formulario">
                 {% csrf_token %}
                 <div class="datos-productos">
                     <pre>Nombre Producto</pre>
-                    <input type="text" name="nombre_producto" placeholder="Nombre del producto"
-                        value="{{producto.nombre_producto}}">
+                    <input type="text" name="nombre_producto" placeholder="Nombre del producto" value="{{producto.nombre_producto}}">
                     <pre>Cantidad Producto</pre>
-                    <input type="number" name="cantidad_producto" placeholder="Ingrese la cantidad del producto"
-                        value="{{producto.cantidad_producto}}">
+                    <input type="number" name="cantidad_producto" placeholder="Ingrese la cantidad del producto" value="{{producto.cantidad_producto}}">
                     <pre>Precio producto</pre>
-                    <input type="number" name="precio_producto" placeholder="Ingrese el precio del producto"
-                        value="{{producto.precio_producto}}">
+                    <input type="number" name="precio_producto" placeholder="Ingrese el precio del producto" value="{{producto.precio_producto}}">
                 </div>
                 <div class="descripcion-producto">
-                    <pre>Descripción Producto:  </pre>
-                    <textarea name="descripcion_producto" id="" cols="30" rows="12" maxlength="100"
-                        placeholder="Ingrese la descripcion del producto">{{ producto.descripcion_producto }}</textarea>
+                    <pre>Descripción Producto:</pre>
+                    <textarea name="descripcion_producto" cols="30" rows="12" maxlength="100" placeholder="Ingrese la descripcion del producto">{{ producto.descripcion_producto }}</textarea>
+                </div>
+                <div class="imagen-producto">
+                    <pre>Imagen del producto</pre>
+                    <input type="file" name="imagen_producto" id="imagen_producto" accept="image/*" onchange="previsualizarImagen(event)">
+                    <div id="preview-container">
+                        <img id="preview-image" src="{% if producto.imagen_producto %}{{ producto.imagen_producto }}{% else %}#{% endif %}" alt="Previsualización de la imagen" style="display: block; max-width: 100%; height: auto;">
+                    </div>
                 </div>
             </div>
             <input class="boton-actualizar" type="submit" id="actualizar" name="opcion" value="Actualizar producto">
@@ -70,11 +73,11 @@
     <!-- Redirecciones -->
     <script>
         function redireccionHome() {
-            location.href = "{% url 'Home' %}"
+            location.href = "{% url 'Home' %}";
         }
 
         function redireccionProductosList() {
-            location.href = "{% url 'ProductosList' %}"
+            location.href = "{% url 'ProductosList' %}";
         }
 
         function loader() {
@@ -86,6 +89,21 @@
         }
 
         window.onload = fadeOut;
+    </script>
+
+    <script>
+        function previsualizarImagen(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>

@@ -182,6 +182,21 @@ def ProductosMod(request, pk):
                 producto['cantidad_producto'] = request.POST.get('cantidad_producto', producto['cantidad_producto'])
                 producto['precio_producto'] = request.POST.get('precio_producto', producto['precio_producto'])
 
+                # Manejar la imagen del producto
+                imagen = request.FILES.get('imagen_producto')
+                if imagen:
+                    # Crear un nombre de archivo seguro
+                    imagen_name = f"{producto['id_producto']}_{slugify(producto['nombre_producto'])}.{imagen.name.split('.')[-1]}"
+                    fs = FileSystemStorage(location='inventarioApp/static/imagenes/Productos')
+                    filename = fs.save(imagen_name, imagen)
+                    imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
+                    if imagen_url.startswith('/media/'):
+                        # Si comienza con '/media/', reemplazar 'media/' con ''
+                        imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
+                    
+                    # Guardar la ruta de la imagen en el producto
+                    producto['imagen_producto'] = imagen_url
+
                 # Escribir los datos actualizados de vuelta al archivo JSON
                 with open(settings.JSON_FILE_PATH, 'w') as file:
                     json.dump(data, file, indent=4)
@@ -204,28 +219,46 @@ def ProductosMod(request, pk):
 
 
 def ProductosUpdate(request):
-     if request.method == "POST":
-         idproducto=request.POST["id_producto"]
-         nombre=request.POST["nombre_producto"]
-         descripcion=request.POST["descripcion_producto"]
-         cantidad=request.POST["cantidad_producto"]
-         precio=request.POST["precio_producto"]
+    if request.method == "POST":
+        id_producto = request.POST["id_producto"]
+        nombre = request.POST["nombre_producto"]
+        descripcion = request.POST["descripcion_producto"]
+        cantidad = request.POST["cantidad_producto"]
+        precio = request.POST["precio_producto"]
+        imagen = request.FILES.get('imagen_producto')
 
-         producto = producto()
-        
-         producto.id_producto=idproducto
-         producto.nombre_producto=nombre
-         producto.descripcion_producto=descripcion
-         producto.stock_producto=cantidad
-         producto.precio_producto=precio
-         producto.save()
+        # Buscar el producto existente
+        try:
+            producto = producto.objects.get(id_producto=id_producto)
+        except producto.DoesNotExist:
+            context = {'mensaje': "Error: el producto no existe."}
+            return render(request, 'productos/ProductosMod.html', context)
 
-         context = {'mensaje': "Ok, datos actualizados..."}
-         return render(request, 'ProductosMod.html', context)
-     else:
-         productos = producto.objects.all()
-         context = {'productos': productos}
-         return render(request,  'productos/ProductosList.html', context)
+        # Actualizar los datos del producto
+        producto.nombre_producto = nombre
+        producto.descripcion_producto = descripcion
+        producto.stock_producto = cantidad
+        producto.precio_producto = precio
+
+        if imagen:
+            # Crear un nombre de archivo seguro
+            imagen_name = f"{id_producto}_{slugify(nombre)}.{imagen.name.split('.')[-1]}"
+            fs = FileSystemStorage(location='inventarioApp/static/imagenes/Productos')
+            filename = fs.save(imagen_name, imagen)
+            imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
+            if imagen_url.startswith('/media/'):
+                # Si comienza con '/media/', reemplazar 'media/' con ''
+                imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
+            producto.imagen_producto = imagen_url  # Asignar la URL de la imagen al producto
+
+        producto.save()
+
+        context = {'mensaje': "Producto actualizado exitosamente.", 'producto': producto}
+        return render(request, 'productos/ProductosMod.html', context)
+    else:
+        productos = producto.objects.all()
+        context = {'productos': productos}
+        return render(request, 'productos/ProductosList.html', context)
 
 #----------------------------------Detalle Producto------------------------------------------
 def ProductosDet(request, pk):
