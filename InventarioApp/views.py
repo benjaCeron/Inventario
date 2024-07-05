@@ -41,7 +41,7 @@ def Login(request):
             return render(request, 'Home.html', context)
     else:
         
-        return render(request, 'Usuario\Login.html')
+        return render(request, 'InventarioApp\templates\Usuario\Login.html')
 
 
 #----------------------------------Sección Productos-----------------------------------------
