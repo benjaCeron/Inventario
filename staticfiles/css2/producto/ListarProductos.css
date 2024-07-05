@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding-top: 8rem;
+    background-size: cover;
+    background-position: center;
+    background-color: #E4E3DB;
+    
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #C5001A;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #C5001A;
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid rgb(98, 9, 9);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255, .4), 
+    transparent);
+    transition: .8s;
+}
+
+.header:hover::before {
+    left: 100%;
+}
+
+/*Iconos del navbar*/
+
+.logo {
+    font-size:  30px;
+    color: #fff;
+    user-select: none;
+}
+
+.navigation,
+.nav_items {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: .5s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.navigation .btn-popup-Agregar {
+    width: 250px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: .5s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.navigation .btn-popup-Agregar i{
+    margin-left: 10px;
+    height: 25px;
+    width: 25px;
+    font-size: 25px;
+}
+
+.navigation .btn-popup-Agregar:hover {
+    background: rgb(57, 241, 47);
+    color: rgb(0, 0, 0);
+}
+
+.navigation .btnLogin-popup .fa-solid.fa-user{
+    margin-left: 10px;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #fff;
+    color: black;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin: 0rem 1rem 3rem 1rem;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.2rem solid #C5BEBA;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    padding: 2rem 1rem 2rem 1rem;
+    cursor: pointer;
+    background-color: #113743;
+}
+
+.grid-item img {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    align-items: center;
+    text-align: center;
+    width: 10rem;
+    height: 10rem;
+    user-select: none;
+    border: 0.2rem solid #fff;
+    border-radius: 0.2rem;
+    user-select: none;
+}
+
+.grid-item .id-producto {
+    font-size:25px;
+    border: 4px solid #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    margin: 1rem 2rem 1rem 2rem;
+    text-align: center;
+    user-select: none;
+    color: #fff;
+}
+
+.grid-item .nombre-producto {
+    border: 3px solid #ffffff;
+    font-size:25px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 1rem 2rem 1rem 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    user-select: none;
+    color: #fff;
+}
+
+.grid-item p {
+    color: #fff;
+    margin-top: 0.5rem;
+    border: 0.2rem solid #fff;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.grid-item p i{
+    margin-left: 10px;
+    height: 25px;
+    width: 25px;
+    font-size: 25px;
+}
+
+.grid-item p:hover {
+    background: #fff;
+    color: black;
+}
+
+.grid-item .boton-eliminar, .boton-detalle, .boton-modificar {
+    text-align: center;
+    user-select: none;
+    color: #fff;
+    padding: 0.2rem 0rem 0.2rem 0rem;
+    border: 0.2rem solid #fff;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.grid-item .boton-detalle:hover{
+    background: #009dff;
+    color: #252525;
+}
+
+.grid-item .boton-modificar:hover{
+    background: #fff700;
+    color: #252525;
+}
+
+.grid-item .boton-eliminar:hover{
+    background: #FF0000;
+    color: #252525;
+}
+
+.Titulo{ 
+    display: flex;
+    font-size:30px;
+    text-align: center;
+    user-select: none;
+    color: #252525;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}

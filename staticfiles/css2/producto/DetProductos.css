@@ -1,0 +1,153 @@
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: .5s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.navigation .btn-popup-Volver {
+    width: 250px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: .5s;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.navigation .btn-popup-Volver i {
+    margin-left: 10px;
+    height: 25px;
+    width: 25px;
+    font-size: 25px;
+}
+
+.navigation .btn-popup-Volver:hover {
+    background: #ADD8E6;
+    color: rgb(0, 0, 0);
+}
+
+.navigation .btnLogin-popup .fa-solid.fa-user {
+    margin-left: 10px;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #fff;
+    color: black;
+}
+
+.contenedor-formulario {
+    border: 5px solid #fff;
+    margin-top: 5rem;
+    background-color: #5d5c5c;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    border-radius: 2rem;
+}
+
+.contenedor-formulario .Agregar {
+    border: 3px solid #252525;
+    background-color: #fff;
+    border-top-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin: 1rem 6rem 1rem 6rem;
+}
+
+.contenedor-formulario .id-producto {
+    color: #fff;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.contenedor-formulario .info-producto {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1rem 2rem 1rem 2rem;
+    font-size: 20px;
+}
+
+.contenedor-formulario .boton-eliminar {
+    width: 250px;
+    height: 50px;
+    background: transparent;
+    border: 3px solid #fff;
+    outline: none;
+    font-size: 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    transition: .5s;
+}
+
+.contenedor-formulario .boton-eliminar:hover {
+    background: rgb(241, 47, 47);
+    color: rgb(0, 0, 0);
+}
+
+.contenedor-formulario .info-producto .datos-productos {
+    margin: 0.5rem 1rem 1rem 1rem;
+    width: 20rem;
+}
+
+.contenedor-formulario .info-producto .descripcion-producto {
+    margin: 0.5rem 1rem 1rem 1rem;
+}
+
+.contenedor-formulario pre {
+    margin-top: 10px;
+    font-weight: 900;
+}
+
+.contenedor-formulario .info-producto .nombre, .precio, .cantidad {
+    font-size: 20px;
+    background-color: #fff;
+    border: 3px solid #252525;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contenedor-formulario .info-producto .descripcion-producto {
+    font-size: 20px;
+    height: 16rem;
+    background-color: #fff;
+    border: 3px solid #252525;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contenedor-formulario .info-producto .descripcion-producto p {
+    margin-top: 1rem;
+    max-width: 20rem;
+}
