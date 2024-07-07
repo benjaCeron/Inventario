@@ -1,44 +1,12 @@
 {
     "productos": [
         {
-            "id_producto": 1,
-            "nombre_producto": "Guitarra",
-            "descripcion_producto": "Bfdbfdvdvf",
-            "cantidad_producto": 5634,
-            "precio_producto": 3522.0,
-            "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
-        },
-        {
-            "id_producto": 2,
-            "nombre_producto": "Bateria",
-            "descripcion_producto": "Bfdbfdbfd",
-            "cantidad_producto": 532523,
-            "precio_producto": 53235252.0,
-            "imagen_producto": "/static/imagenes/Productos/istockphoto-1367723112-612x612_GhmdLyg.jpg"
-        },
-        {
-            "id_producto": 3,
-            "nombre_producto": "Bajo",
-            "descripcion_producto": "Bfdbdfbfdbfd",
-            "cantidad_producto": "241414",
-            "precio_producto": "3424242.0",
-            "imagen_producto": "/static/imagenes/Productos/3_bajo_MI2P2Dc.jpg"
-        },
-        {
-            "id_producto": 4,
-            "nombre_producto": "Flauta",
-            "descripcion_producto": "Bhbhvghvg",
-            "cantidad_producto": 65657,
-            "precio_producto": 656567.0,
-            "imagen_producto": "/static/imagenes/Productos/13_hola.jpg"
-        },
-        {
-            "id_producto": 5,
-            "nombre_producto": "Piano electrico",
-            "descripcion_producto": "Bhbhvghvg",
-            "cantidad_producto": "65657",
-            "precio_producto": "656567.0",
-            "imagen_producto": "/static/imagenes/Productos/5_piano-electrico.jpg"
+            "id_producto": 7,
+            "nombre_producto": "Hola",
+            "descripcion_producto": "Piano elecrtrico hecho en china",
+            "cantidad_producto": 232132,
+            "precio_producto": 42124.0,
+            "imagen_producto": "/static/imagenes/Productos/1_hola.jpg"
         }
     ],
     "productos_Aprobados": [

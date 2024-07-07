@@ -67,25 +67,39 @@ def ProductosAdd(request):
                 filename = fs.save(imagen_name, imagen)
                 imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
                 if imagen_url.startswith('/media/'):
-                    # Si comienza con '/media/', reemplazar 'media/' con ''
-                    imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
+                     # Si comienza con '/media/', reemplazar 'media/' con ''
+                     imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
             else:
                 imagen_url = None
 
-            nuevo_producto = {
-                "id_producto": id_producto,
+            # Guardar en la base de datos
+            nuevo_producto = Producto(
+                nombre=nombre,
+                descripcion=descripcion,
+                cantidad=cantidad,
+                precio=precio,
+                imagen=imagen_url
+            )
+            nuevo_producto.save()
+
+            # Guardar en el archivo JSON
+            producto_json = {
+                "id_producto": nuevo_producto.id,
                 "nombre_producto": nombre,
                 "descripcion_producto": descripcion,
                 "cantidad_producto": cantidad,
                 "precio_producto": precio,
-                "imagen_producto": imagen_url  # Guardar la URL relativa sin 'media/' en el JSON
+                "imagen_producto": imagen_url
             }
 
-            with open('Data/data.json', 'r') as archivo:
-                datos = json.load(archivo)
+            try:
+                with open('Data/data.json', 'r') as archivo:
+                    datos = json.load(archivo)
+            except FileNotFoundError:
+                datos = {}
 
             productos_json = datos.get('productos', [])
-            productos_json.append(nuevo_producto)
+            productos_json.append(producto_json)
             datos['productos'] = productos_json
 
             with open('Data/data.json', 'w') as archivo:
@@ -108,6 +122,56 @@ def obtener_ultimo_id():
                 return 0  # Si no hay productos, devolver 0 como el último ID
     except FileNotFoundError:
         return 0  # Si el archivo no existe, devolver 0 como el último ID
+    
+
+
+# def ProductosAdd(request):
+#     context = {}
+#     if request.method == "POST":
+#         id_producto = obtener_ultimo_id() + 1
+#         nombre = request.POST["nombre_producto"].capitalize()
+#         descripcion = request.POST["descripcion_producto"].capitalize()
+#         cantidad = int(request.POST["cantidad_producto"])
+#         precio = float(request.POST["precio_producto"])
+
+#         if cantidad <= 0 or precio <= 0:
+#             context['mensaje'] = "Cantidad y precio deben ser mayores a 0."
+#         else:
+#             imagen = request.FILES.get('imagen_producto')
+#             if imagen:
+#                 # Crear un nombre de archivo seguro
+#                 imagen_name = f"{id_producto}_{slugify(nombre)}.{imagen.name.split('.')[-1]}"
+#                 fs = FileSystemStorage(location='inventarioApp/static/imagenes/Productos')
+#                 filename = fs.save(imagen_name, imagen)
+#                 imagen_url = fs.url(filename)  # Obtener la URL relativa de la imagen
+#                 if imagen_url.startswith('/media/'):
+#                     # Si comienza con '/media/', reemplazar 'media/' con ''
+#                     imagen_url = imagen_url.replace('/media/', '/static/imagenes/Productos/')
+#             else:
+#                 imagen_url = None
+
+#             nuevo_producto = {
+#                 "id_producto": id_producto,
+#                 "nombre_producto": nombre,
+#                 "descripcion_producto": descripcion,
+#                 "cantidad_producto": cantidad,
+#                 "precio_producto": precio,
+#                 "imagen_producto": imagen_url  # Guardar la URL relativa sin 'media/' en el JSON
+#             }
+
+#             with open('Data/data.json', 'r') as archivo:
+#                 datos = json.load(archivo)
+
+#             productos_json = datos.get('productos', [])
+#             productos_json.append(nuevo_producto)
+#             datos['productos'] = productos_json
+
+#             with open('Data/data.json', 'w') as archivo:
+#                 json.dump(datos, archivo, indent=4)
+
+#             context['mensaje'] = "OK, Producto Agregado..."
+
+#     return render(request, 'productos/ProductosAdd.html', context)
 
 #---------------------------------Listar productos-------------------------------------------
 def ProductosList(request):

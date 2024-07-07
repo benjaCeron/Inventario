@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-t-i+d+4us4l6gd=07y!5t$w0^)9^hz=h7h&9y8h@p4dt&g4zp#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inventario-l3ss.onrender.com']
+ALLOWED_HOSTS = ['inventario-l3ss.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -77,17 +77,17 @@ WSGI_APPLICATION = 'ProyectoInventario.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Proyecto_Inventario',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'proyecto_Inventario',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
 
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
