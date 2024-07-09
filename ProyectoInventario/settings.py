@@ -127,7 +127,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Asegúrate de que esta línea esté presente
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'InventarioApp/static')]
 
 # Archivos de medios (subidas de usuarios)
 MEDIA_URL = '/media/'
